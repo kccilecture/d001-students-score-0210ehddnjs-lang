@@ -33,7 +33,7 @@ def subject_average(student_scores: dict, subjects: list):
 
     for scores in student_scores.values():
         for i, score in enumerate(scores):
-            sums[i] += float(score)
+            sums[i] += int(score)
 
     averages = {subjects[i]: sums[i] / count for i in range(len(subjects))}
     return averages
@@ -48,7 +48,7 @@ def student_average(student_scores: dict):
     """
     averages = []
     for name, scores in student_scores.items():
-        avg = sum(map(float, scores)) / len(scores)
+        avg = sum(map(int, scores)) / len(scores)
         averages.append((name, avg))
 
     averages.sort(key=lambda x: x[1], reverse=True)
