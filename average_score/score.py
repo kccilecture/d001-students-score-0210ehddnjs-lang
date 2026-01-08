@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
 import csv
+import math
 
 
 def load_from_csv(filepath):
@@ -27,7 +28,17 @@ def subject_average(student_scores: dict, subjects: list):
     이 반의 각 과목별 평균을 구해서 딕셔너리로 반환
     예) {"국어": 80.8, "수학": 35.3, "영어": 96.6, "과학": 85.3, "사회": 38.8}
     """
-    pass
+    sums = [0] * len(subjects)
+    count = len(student_scores)
+
+    for scores in student_scores.values():
+        for i, score in enumerate(scores):
+            sums[i] += float(score)
+
+    averages = {subjects[i]: sums[i] / count for i in range(len(subjects))}
+    return averages
+
+
 
 
 def student_average(student_scores: dict):
@@ -35,7 +46,14 @@ def student_average(student_scores: dict):
     각 학생별 전과목 평균 점수를 정렬된 튜플의 리스트로 반환
     예) [("이영희", 89.8), ("김철수", 86.6), ("박민수", 84.8)]
     """
-    pass
+    averages = []
+    for name, scores in student_scores.items():
+        avg = sum(map(float, scores)) / len(scores)
+        averages.append((name, avg))
+
+    averages.sort(key=lambda x: x[1], reverse=True)
+    return averages
+
 
 
 if __name__ == "__main__":
